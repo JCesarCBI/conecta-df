@@ -1,9 +1,9 @@
-#appname: parkingGood
-#appid: com.sismobile.parkingFine
-#type: mobile
-#guid: d93e16de-44b7-44fb-8efb-773fcea420c5
-#version: 1.0
-#publisher: not specified
-#url: not specified
-#image: appicon.png
-#desc: not specified
+#appname:parkingGood
+#appid:com.sismobile.parkingFine
+#type:ipad
+#guid:d93e16de-44b7-44fb-8efb-773fcea420c5
+#version:1.0
+#publisher:appcelerator
+#url:http://
+#image:appicon.png
+#desc:not specified

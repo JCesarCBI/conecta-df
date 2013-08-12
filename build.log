@@ -1,0 +1,20 @@
+Logfile initialized
+[INFO] logfile = /Users/appcelerator/Documents/Titanium_Studio_Workspace/parkingGood/build.log
+[DEBUG] /Users/appcelerator/Library/Application Support/Titanium/mobilesdk/osx/3.1.1.GA/android/builder.py simulator parkingGood /Users/appcelerator/Documents/AndroidSDK /Users/appcelerator/Documents/Titanium_Studio_Workspace/parkingGood com.sismobile.parkingFine 9 WVGA800
+[INFO] logfile = /Users/appcelerator/Documents/Titanium_Studio_Workspace/parkingGood/build.log
+[DEBUG] /Users/appcelerator/Library/Application Support/Titanium/mobilesdk/osx/3.1.1.GA/android/builder.py emulator parkingGood /Users/appcelerator/Documents/AndroidSDK /Users/appcelerator/Documents/Titanium_Studio_Workspace/parkingGood com.sismobile.parkingFine 9 WVGA800 x86
+[INFO] Building parkingGood for Android ... one moment
+[INFO] Launching Android emulator...one moment
+[DEBUG] From: /Users/appcelerator/Documents/AndroidSDK/tools/emulator
+[DEBUG] SDCard: /Users/appcelerator/.titanium/android2.sdcard
+[DEBUG] AVD ID: 9
+[DEBUG] AVD Skin: WVGA800
+[DEBUG] AVD ABI: x86
+[DEBUG] SDK: /Users/appcelerator/Documents/AndroidSDK
+[INFO] Titanium SDK version: 3.1.1 (06/15/13 16:09 f7592c1)
+[DEBUG] Waiting for device to be ready ...
+[TRACE] adb devices returned 0 devices/emulators
+[DEBUG] /Users/appcelerator/Documents/AndroidSDK/tools/emulator -avd titanium_9_WVGA800_x86 -port 5560 -sdcard /Users/appcelerator/.titanium/titanium_9_WVGA800_x86.sdcard -logcat *:d,*,TiAPI:V -no-boot-anim -partition-size 128
+[TRACE] adb devices returned 0 devices/emulators
+[TRACE] adb devices returned 0 devices/emulators
+[INFO] Android Emulator has exited
