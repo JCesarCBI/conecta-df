@@ -34,7 +34,8 @@ Ti.Geolocation.getCurrentPosition(function(e)
     				latitude: coordinate.latitud,
     				longitude: coordinate.longitud,
     				animate: true,
-    				pincolor: Ti.Map.ANNOTATION_GREEN 
+    				image: 'images/pin1.png',
+    				// pincolor: Ti.Map.ANNOTATION_GREEN 
     			});
     			gps.push(annotation);
     		}
