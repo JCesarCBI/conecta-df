@@ -1,4 +1,4 @@
-var viewConfigurations = Ti.UI.createView();
+var winConfigurations = Ti.UI.currentWindow;
 
 var labelTitle = Ti.UI.createLabel({
 	text: 'Configuraciones',
@@ -6,6 +6,4 @@ var labelTitle = Ti.UI.createLabel({
 	width: 'auto'
 });
 
-viewConfigurations.add(labelTitle);
-
-Ti.UI.currentWindow.add(viewConfigurations);
+winConfigurations.add(labelTitle);

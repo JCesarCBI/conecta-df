@@ -1,4 +1,4 @@
-var viewSearch = Ti.UI.createView();
+var winSearch = Ti.UI.currentWindow;
 
 var url = "http://148.206.41.113/apparking.php?action=getParking";
 var gps = [];
@@ -47,7 +47,7 @@ Ti.Geolocation.getCurrentPosition(function(e)
     			userLocation:true,
     			annotations: gps
     			});
-    		viewSearch.add(parkinGPS);
+    		winSearch.add(parkinGPS);
 		},
 		onerror: function(e){
 			Ti.API.debug("STATUS: " + this.status);
@@ -60,5 +60,4 @@ Ti.Geolocation.getCurrentPosition(function(e)
     xhr.open("GET", url);
 	xhr.send();
 	
-	Ti.UI.currentWindow.add(viewSearch);
 });
