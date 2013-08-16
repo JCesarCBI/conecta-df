@@ -16,7 +16,7 @@ var tabSearch = Titanium.UI.createTab({
 
 //Segunda ventana y pestaña
 var winTools = Titanium.UI.createWindow({
-	url: 'tools/parking.js'
+	url: 'tools.js'
 });
 var tabTools = Titanium.UI.createTab({
 	title: 'Herramientas',

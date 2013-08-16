@@ -6,7 +6,8 @@ var winParkingMeter = Ti.UI.createWindow({
 
 winLocation.addEventListener('swipe', function(e){
 	if (e.direction == 'right') {
-		Ti.UI.currentTab.close();
+		Ti.UI.currentTab.remove(winLocation);
+		Ti.UI.currentTab.add(winParkingMeter);
 		Ti.UI.currentTab.open(winParkingMeter);
 	};
 });

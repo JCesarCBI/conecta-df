@@ -16,10 +16,12 @@ var labelTitle = Ti.UI.createLabel({
 
 winParkingMeter.addEventListener('swipe', function(e){
 	if (e.direction == 'left') {
-		Ti.UI.currentTab.close();
+		Ti.UI.currentTab.remove(winParkingMeter);
+		Ti.UI.currentTab.add(winLocation);
 		Ti.UI.currentTab.open(winLocation);
 	} else if(e.direction == 'right'){
-		Ti.UI.currentTab.close();
+		Ti.UI.currentTab.remove(winParkingMeter);
+		Ti.UI.currentTab.add(winParking);
 		Ti.UI.currentTab.open(winParking);
 	};
 });
