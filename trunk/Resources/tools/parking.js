@@ -12,7 +12,8 @@ var labelTitle = Ti.UI.createLabel({
 
 Ti.UI.currentWindow.addEventListener('swipe', function(e){
 	if (e.direction == 'left') {
-		Ti.UI.currentTab.close();
+		Ti.UI.currentTab.remove(winParking);
+		Ti.UI.currentTab.add(winParkingMeter);
 		Ti.UI.currentTab.open(winParkingMeter);
 	};
 });
