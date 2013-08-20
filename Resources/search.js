@@ -30,6 +30,7 @@ Ti.Geolocation.getCurrentPosition(function(e)
     		var longitud = json.length;
     		for(i=0; i<json.length; i++){
     			coordinate = json[i];
+    			//Cargar la imagen del pin desde la base de datos y como titulo/subtitulo (nombre, promedio, lugares disponibles)
     			var annotation = Ti.Map.createAnnotation({
     				latitude: coordinate.latitud,
     				longitude: coordinate.longitud,
