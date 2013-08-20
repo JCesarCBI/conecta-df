@@ -7,7 +7,8 @@ var tabGroup = Titanium.UI.createTabGroup();
 
 //Primera ventana y pestaña
 var winSearch = Titanium.UI.createWindow({
-	url: 'search.js'
+	url: 'search.js',
+	navBarHidden: true
 });
 var tabSearch = Titanium.UI.createTab({
 	title: 'Buscar',
@@ -16,7 +17,8 @@ var tabSearch = Titanium.UI.createTab({
 
 //Segunda ventana y pestaña
 var winTools = Titanium.UI.createWindow({
-	url: 'tools.js'
+	url: 'tools.js',
+	navBarHidden: true
 });
 var tabTools = Titanium.UI.createTab({
 	title: 'Herramientas',
@@ -25,7 +27,8 @@ var tabTools = Titanium.UI.createTab({
 
 //Tercera ventana y pestaña
 var winConfigurations = Titanium.UI.createWindow({
-	url: 'configurations.js'
+	url: 'configurations.js',
+	navBarHidden: true
 });
 var tabConfigurations = Titanium.UI.createTab({
 	title: 'Configuraciones',
