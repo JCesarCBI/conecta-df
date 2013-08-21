@@ -1,8 +1,11 @@
 var winSearch = Ti.UI.currentWindow;
 
-var url = "http://148.206.41.113/apparking.php?action=getParking";
-var gps = [];
-var json, coordinate, i, row;
+var urlParking = "http://148.206.41.113/apparking.php?action=getParking";
+var gpsParking = [];
+var jsonParking, coordinateParking, iParking, rowParking;
+
+var urlParkingMeter = "http://148.206.41.113/apparking.php?action=getParkingMeter";
+var gpsParkingMeter = [];
 
 Ti.Geolocation.accuracy = Ti.Geolocation.ACCURACY_BEST;
 Ti.Geolocation.distanceFilter = 10;
@@ -23,32 +26,57 @@ Ti.Geolocation.getCurrentPosition(function(e)
     var speed = e.coords.speed;
     var timestamp = e.coords.timestamp;
     var altitudeAccuracy = e.coords.altitudeAccuracy;
+    
+    var parkingGPS = Titanium.Map.createView({
+    	mapType: Titanium.Map.STANDARD_TYPE,
+    	region: {latitude: latitude, longitude: longitude, latitudeDelta:0.01, longitudeDelta:0.01},
+    	animate:true,
+    	regionFit:true,
+    	userLocation:true,
+    });
    
-    var xhr = Ti.Network.createHTTPClient({
+    var xhrParking = Ti.Network.createHTTPClient({
     	onload: function(){
-    		json = JSON.parse(this.responseText);
+    		var json = JSON.parse(this.responseText);
     		var longitud = json.length;
-    		for(i=0; i<json.length; i++){
-    			coordinate = json[i];
-    			//Cargar la imagen del pin desde la base de datos y como titulo/subtitulo (nombre, promedio, lugares disponibles)
+    		for(var i=0; i<json.length; i++){
+    			var coordinate = json[i];
     			var annotation = Ti.Map.createAnnotation({
     				latitude: coordinate.latitud,
     				longitude: coordinate.longitud,
     				animate: true,
-    				image: 'images/pin1.png',
-    				// pincolor: Ti.Map.ANNOTATION_GREEN 
+    				title: coordinate.nombreEstac,
+    				subtitle: 'Calificación: ' + coordinate.promedio + " | " + 'Capacidad: ' + coordinate.totalEspacios,
+    				image: 'images/pinParking.png'
     			});
-    			gps.push(annotation);
-    		}
-    		var parkinGPS = Titanium.Map.createView({
-    			mapType: Titanium.Map.STANDARD_TYPE,
-    			region: {latitude: latitude, longitude: longitude, latitudeDelta:0.01, longitudeDelta:0.01},
-    			animate:true,
-    			regionFit:true,
-    			userLocation:true,
-    			annotations: gps
+    			gpsParking.push(annotation);
+    		};
+    		parkingGPS.addAnnotations(gpsParking);
+		},
+		onerror: function(e){
+			Ti.API.debug("STATUS: " + this.status);
+			Ti.API.debug("TEXT: " + this.responseText);
+			Ti.API.debug("ERROR" + e.error);
+		},
+		timeout:3000
+	});
+	
+	var xhrParkingMeter = Ti.Network.createHTTPClient({
+    	onload: function(){
+    		var json = JSON.parse(this.responseText);
+    		var longitud = json.length;
+    		for(var i=0; i<json.length; i++){
+    			var coordinate = json[i];
+    			var annotation = Ti.Map.createAnnotation({
+    				latitude: coordinate.latitud,
+    				longitude: coordinate.longitud,
+    				animate: true,
+    				title: 'Paquímetro',
+    				image: 'images/pinParkingMeter.png'
     			});
-    		winSearch.add(parkinGPS);
+    			gpsParkingMeter.push(annotation);
+    		};
+    		parkingGPS.addAnnotations(gpsParkingMeter);
 		},
 		onerror: function(e){
 			Ti.API.debug("STATUS: " + this.status);
@@ -58,7 +86,12 @@ Ti.Geolocation.getCurrentPosition(function(e)
 		timeout:3000
 	});
     
-    xhr.open("GET", url);
-	xhr.send();
+    xhrParking.open("GET", urlParking);
+	xhrParking.send();
+	
+	xhrParkingMeter.open("GET", urlParkingMeter);
+	xhrParkingMeter.send();
+	
+	winSearch.add(parkingGPS);
 	
 });

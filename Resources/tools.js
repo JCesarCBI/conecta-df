@@ -7,6 +7,10 @@ var scoreParking = 0;
 var currentLatitude;
 var currentLongitude;
 
+var soundAlert = Ti.Media.createSound({
+	url: 'media/alert.mp3'
+});
+
 //Funcion que devuleve la latitud y longitud actual del GPS
 function getLocation () {
   Ti.Geolocation.getCurrentPosition(function(e){
@@ -14,17 +18,17 @@ function getLocation () {
           alert('HFL cannot get your current location');
         return;
       };
-       currentLatitude = e.coords.latitude;
-       currentLongitude = e.coords.longitude;
-      //currentLatitude = 19.320327;
-      //currentLongitude = -99.109882;
+       //currentLatitude = e.coords.latitude;
+       //currentLongitude = e.coords.longitude;
+      currentLatitude = 19.363928;
+      currentLongitude = -99.069411;
   });
 };
 
-winTools.backgroundColor = '#E6E6E6';
+winTools.backgroundColor = '#F5F6CE';
 
 var viewParking = Ti.UI.createView({
-	backgroundColor: '#E6E6E6',
+	backgroundColor: '#F5F6CE',
 	bottom: 30,
 	visible: true
 });
@@ -33,68 +37,40 @@ var viewParkingMeter = Ti.UI.createView({
 	bottom: 30,
 	visible: false
 });
-var viewLocation = Ti.UI.createView({
-	backgroundColor: '#A9F5A9', 
-	bottom: 30,
-	visible: false
-});
 
 var lblViewParking = Ti.UI.createLabel({
 	text: 'Estacionamiento',
 	height: 'auto',
-	width: '33%',
+	width: '50%',
 	textAlign: 'center',
 	bottom:2,
 	left:0,
-	backgroundColor: 'blue'
+	backgroundColor: '#F5F6CE'
 });
 
 var lblViewParkingMeter = Ti.UI.createLabel({
 	text: 'Parquímetro',
 	height: 'auto',
-	width: '33%',
+	width: '50%',
 	textAlign: 'center',
 	backgroundColor: 'white',
-	bottom:2
-});
-
-var lblViewLocation = Ti.UI.createLabel({
-	text: 'Localizar',
-	height: 'auto',
-	width: '33%',
-	textAlign: 'center',
-	bottom:2,
-	backgroundColor: 'white',
+	bottom: 2,
 	right: 0
 });
 
 lblViewParking.addEventListener('click', function(){
 	viewParking.visible = true;
 	viewParkingMeter.visible = false;
-	viewLocation.visible = false;
-	lblViewParking.backgroundColor = '#E6E6E6';
+	lblViewParking.backgroundColor = '#F5F6CE';
 	lblViewParkingMeter.backgroundColor = '#A9A9F5';
-	lblViewLocation.backgroundColor = '#A9F5A9';
-	winTools.backgroundColor = '#E6E6E6';
+	winTools.backgroundColor = '#F5F6CE';
 });
 lblViewParkingMeter.addEventListener('click', function(){
 	viewParking.visible = false;
 	viewParkingMeter.visible = true;
-	viewLocation.visible = false;
-	lblViewParking.backgroundColor = '#E6E6E6';
+	//lblViewParking.backgroundColor = '#F5F6CE;
 	lblViewParkingMeter.backgroundColor = '#A9A9F5';
-	lblViewLocation.backgroundColor = '#A9F5A9';
 	winTools.backgroundColor = '#A9A9F5';
-});
-lblViewLocation.addEventListener('click', function(){
-	viewParking.visible = false;
-	viewParkingMeter.visible = false;
-	viewLocation.visible = true;
-	lblViewParking.backgroundColor = '#E6E6E6';
-	lblViewParkingMeter.backgroundColor = '#A9A9F5';
-	lblViewLocation.backgroundColor = '#A9F5A9';
-	winTools.backgroundColor = '#A9F5A9';
-	getLoadViewLocation();
 });
 
 //********** Inicia viewParking**********
@@ -105,10 +81,11 @@ var imgMarkLocation = Ti.UI.createImageView({
 });
 
 var lblTrace = Ti.UI.createLabel({
-    text:'Touch el pin para marcar\ntu posición actual',
+    text:'Preciona el pin para guardar\ntú posición actual',
     textAlign: 'center',
-    font: {fontSize:20, fontFamily: 'Arial'},
+    font: {fontSize:14, fontFamily: 'Arial'},
     top: 5,
+    right: 30,
     height: 'auto',
     width: 'auto',
     color: 'blue'
@@ -117,16 +94,16 @@ var lblTrace = Ti.UI.createLabel({
 imgMarkLocation.addEventListener('click', function(){
     if (imgMarkLocation.image = 'images/addLocation.png') {
         imgMarkLocation.image = 'images/addedLocation.png';
-        lblTrace.text = 'Tu posición ha sido marcada';
+        lblTrace.text = 'Tu posición ha sido guardada';
         lblTrace.color = 'red';
-        getLocation();
+        getLocation;
     };
 });
 
 var txtHour = Ti.UI.createTextField({
     borderColor: 'black',
     borderRadius: 5,
-    top:80,
+    top:60,
     hintText:'$ primera hora',
     textAlign: 'center',
     width: '50%',
@@ -141,7 +118,7 @@ txtHour.addEventListener('change', function(){
 var txtFraction = Ti.UI.createTextField({
     borderColor: 'black',
     borderRadius: 5,
-    top:160,
+    top:100,
     hintText:'$ por fracción',
     textAlign: 'center',
     width: '50%',
@@ -162,7 +139,7 @@ winTools.addEventListener('click', function(e){
 
 //Switch para iniciar y detener cronometro
 var swtStart = Ti.UI.createSwitch({
-    top:160,
+    top:130,
     right: 10,
     width: 'auto',
     height: 'auto',
@@ -187,10 +164,9 @@ var lblSeconds = Ti.UI.createLabel({
 
 //Etiqueta para desplejar cronometro
 var lblChronometer = Ti.UI.createLabel({
-    font: {fontSize:52, fontFamily: 'DB LCD Temp'},
-    color: 'black',
+    font: {fontSize:40, fontFamily: 'DB LCD Temp'},
     textAlign: 'center',
-    top: 240,
+    top: 170,
     text: lblHours.text + ':' + lblMinutes.text + ':' + lblSeconds.text
 })
 
@@ -231,9 +207,6 @@ function detener(){
 };
 
 function crono(){
-	lblHours.value = 00;
-	lblMinutes.value = 00;
-	lblSeconds.value = 00;
     contador_s =0;
     contador_m =0;
     contador_h =0;
@@ -253,25 +226,27 @@ function crono(){
         lblChronometer.text = lblHours.text + ':' + lblMinutes.text + ':' + lblSeconds.text;
         contador_s++;
         }
-    ,1);
+    ,1000);
 };
 
 var lblMonto = Ti.UI.createLabel({
-    font: {fontSize:32, fontFamily:'American Typewriter'},
+    font: {fontSize:22, fontFamily:'American Typewriter'},
     text: '$ 0.00',
     textAlign: 'right',
-    top: 300,
-    right: 5,
-    color: 'black',
+    top: 210,
+    left: 5,
+    color: 'white',
+    backgroundColor: '#0B6121',
     width: 'auto',
     height: 'auto',
+    borderRadius: 10,
 });
 
 var lblRate = Ti.UI.createLabel({
-    font: {fontSize:18, fontFamily:'American Typewriter'},
-    text: '¿Desea calificar el servicio del estacionamiento?',
+    font: {fontSize:13, fontFamily:'Arial'},
+    text: 'Califique el servicio del estacionamiento',
     textAlign: 'center',
-    top: 350,
+    top: 250,
     width: 'auto',
     height: 'auto',
     visible: false
@@ -279,31 +254,31 @@ var lblRate = Ti.UI.createLabel({
 
 var imgStarOne = Ti.UI.createImageView({
     image: 'images/star_off.png',
-    top: 380,
+    top: 270,
     left: 0,
     visible: false
 });
 var imgStarTwo = Ti.UI.createImageView({
     image: 'images/star_off.png',
-    top: 380,
+    top: 270,
     left: 49,
     visible: false
 });
 var imgStarThree = Ti.UI.createImageView({
     image: 'images/star_off.png',
-    top: 380,
+    top: 270,
     left: 97,
     visible: false
 });
 var imgStarFour = Ti.UI.createImageView({
     image: 'images/star_off.png',
-    top: 380,
+    top: 270,
     left: 145,
     visible: false
 });
 var imgStarFive = Ti.UI.createImageView({
     image: 'images/star_off.png',
-    top: 380,
+    top: 270,
     left: 193,
     visible: false
 });
@@ -359,18 +334,26 @@ var txaComment = Ti.UI.createTextArea({
   borderRadius: 5,
   textAlign: 'center',
   hintText: 'Escribe aquí tu comentario',
-  top: 450,
+  value: 'Escribe aquí tu comentario',
+  font: {fontSize:12, fontFamily:'Arial'},
+  returnKeyType: Ti.UI.RETURNKEY_GO,
+  bottom: 5,
   width: '70%',
-  height : 'auto',
+  height : 50,
   left: 5,
   visible: false
 });
 
 var imgSendRate = Ti.UI.createImageView({
     image: 'images/send.png',
-    top: 450,
-    right: 5,
+    bottom: 5,
+    right: 10,
     visible: false
+});
+
+imgSendRate.addEventListener('click', function(){
+    alert('Gracias por su calificación. Usted a calificado con un ' + scoreParking + '.');
+    return;
 });
 
 viewParking.add(imgMarkLocation);
@@ -399,10 +382,11 @@ var imgMarkLocationPM = Ti.UI.createImageView({
 });
 
 var lblTracePM = Ti.UI.createLabel({
-    text:'Touch el pin para marcar\ntu posición actual',
+    text:'Preciona el pin para guardar\ntú posición actual',
     textAlign: 'center',
-    font: {fontSize:20, fontFamily: 'Arial'},
+    font: {fontSize:14, fontFamily: 'Arial'},
     top: 5,
+    right: 30,
     height: 'auto',
     width: 'auto',
     color: 'blue'
@@ -411,7 +395,7 @@ var lblTracePM = Ti.UI.createLabel({
 imgMarkLocationPM.addEventListener('click', function(){
     if (imgMarkLocationPM.image = 'images/addLocation.png') {
         imgMarkLocationPM.image = 'images/addedLocation.png';
-        lblTracePM.text = 'Tu posición ha sido marcada';
+        lblTracePM.text = 'Tu posición ha sido guardada';
         lblTracePM.color = 'red';
         getLocation;
     };
@@ -518,9 +502,10 @@ function cronoPM (){
 					lblSecondsPM.text = contador_s;
 				}
 				if((contador_h==0)&&(contador_m==5)&&(contador_s==0)){
-					alert('Restan 5 minutos de estacionamiento')
+					alert('Restan 5 minutos de estacionamiento');
+					soundAlert.play();
 				}
-             },10);
+             },1000);
 	}
 }; 
 
@@ -530,94 +515,9 @@ viewParkingMeter.add(sldPayment);
 viewParkingMeter.add(lblCountdown);
 viewParkingMeter.add(swtStartPM);
 viewParkingMeter.add(lblAmount);
-//********** Inicia viewParkingMeter**********
-
-//********** Inicia viewLocation**********
-function getLoadViewLocation () {
-	Ti.Geolocation.getCurrentPosition(function(evt){
-		if (evt.error){
-			alert('HFL cannot get your current location');
-			return;
-		};
-		
-		var origin = String(evt.coords.latitude + ',' + evt.coords.longitude),
-		travelMode = 'walking',
-		destination = String(currentLatitude + ',' + currentLongitude),
-		url = "http://maps.google.com/maps/api/directions/xml?mode="
-			+ travelMode + "&origin="
-			+ origin + "&destination="
-			+ destination +"&sensor=false";
-	
-		xhr = Titanium.Network.createHTTPClient();
-	
-		xhr.onload = function(e){
-			var xml = this.responseXML,
-			points = [],
-			steps = xml.documentElement.getElementsByTagName("step"),
-			totalSteps = steps.length;
-			if (totalSteps==0 || totalSteps== null) {
-				alert('Estoy en el mismo lugar');
-			};
-		
-			for (var i=0; i < totalSteps; i++) {
-				var startLocation = steps.item(i).getElementsByTagName("start_location");
-				startLatitude = startLocation.item(0).getElementsByTagName("lat").item(0).text,
-				startLongitude = startLocation.item(0).getElementsByTagName("lng").item(0).text;
-			
-				points.push({latitude:startLatitude, longitude:startLongitude});                
-			};
-		
-			// Obtiene el ultimo punto y lo añade al arreglo
-			var finalLocation = steps.item(totalSteps - 1).getElementsByTagName("end_location"),
-			finalLatitude = finalLocation.item(0).getElementsByTagName("lat").item(0).text,
-			finalLongitude = finalLocation.item(0).getElementsByTagName("lng").item(0).text;
-		
-			points.push({latitude:finalLatitude, longitude:finalLongitude});
-		
-			// Crea la ruta y las anotaciones
-			var route = {
-				name: '¿Cómo llegar?',
-				points: points,
-				color: 'blue',
-				width: 4
-			}, 
-			startAnnotation = Ti.Map.createAnnotation({
-				image: 'images/startAnnotation.png',
-				latitude: points[0].latitude,
-				longitude: points[0].longitude,
-				title: 'Ubicación actual'}),
-		
-			endAnnotation = Ti.Map.createAnnotation({
-				image: 'images/endAnnotation.png',
-				latitude: points[points.length - 1].latitude,
-				longitude: points[points.length - 1].longitude,
-				title: 'Destino'
-			});
-		
-			var mapView = Titanium.Map.createView({
-				mapType: Titanium.Map.STANDARD_TYPE,
-				region: {latitude: evt.coords.latitude, longitude: evt.coords.longitude, latitudeDelta:0.01, longitudeDelta:0.01},
-				animate:true,
-				regionFit:true,
-				userLocation:false,
-			});
-		
-			// Add elements
-			mapView.addRoute(route);
-			mapView.addAnnotation(startAnnotation);
-			mapView.addAnnotation(endAnnotation);
-			viewLocation.add(mapView);
-			winTools.add(viewLocation);
-		};
-	
-		xhr.open('get', url);
-		xhr.send();
-	});
-}
-//********** Termina viewLocation**********
+//********** Termina viewParkingMeter**********
 
 winTools.add(viewParking);
 winTools.add(viewParkingMeter);
 winTools.add(lblViewParking);
 winTools.add(lblViewParkingMeter);
-winTools.add(lblViewLocation);
