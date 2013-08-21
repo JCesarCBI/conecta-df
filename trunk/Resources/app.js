@@ -26,6 +26,16 @@ var tabTools = Titanium.UI.createTab({
 });
 
 //Tercera ventana y pestaña
+var winLocation = Titanium.UI.createWindow({
+	url: 'location.js',
+	navBarHidden: true
+});
+var tabLocation = Titanium.UI.createTab({
+	title: 'Localización',
+	window:winLocation
+});
+
+//Cuarta ventana y pestaña
 var winConfigurations = Titanium.UI.createWindow({
 	url: 'configurations.js',
 	navBarHidden: true
@@ -38,6 +48,7 @@ var tabConfigurations = Titanium.UI.createTab({
 //Agregar pestañas al grupo
 tabGroup.addTab(tabSearch);
 tabGroup.addTab(tabTools);
+tabGroup.addTab(tabLocation);
 tabGroup.addTab(tabConfigurations);
 
 // open tab group
