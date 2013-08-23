@@ -352,7 +352,7 @@ var imgSendRate = Ti.UI.createImageView({
 });
 
 imgSendRate.addEventListener('click', function(){
-    alert('Gracias por su calificación. Usted a calificado con un ' + scoreParking + '.');
+    alert('Gracias por su calificación. Usted a calificado con un ' + scoreParking + ' al servicio proporcionado.');
     return;
 });
 
