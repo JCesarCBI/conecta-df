@@ -7,6 +7,10 @@ var scoreParking = 0;
 var currentLatitude;
 var currentLongitude;
 
+
+//database interna
+var db = Ti.Database.install('/database/location.db', 'location');
+
 var soundAlert = Ti.Media.createSound({
 	url: 'media/alert.mp3'
 });
@@ -97,6 +101,7 @@ imgMarkLocation.addEventListener('click', function(){
         lblTrace.text = 'Tu posición ha sido guardada';
         lblTrace.color = 'red';
         getLocation;
+        db.execute('INSERT INTO gps (latitude, longitude) VALUES (?,?)', currentLatitude, currentLongitude);
     };
 });
 
@@ -168,7 +173,7 @@ var lblChronometer = Ti.UI.createLabel({
     textAlign: 'center',
     top: 170,
     text: lblHours.text + ':' + lblMinutes.text + ':' + lblSeconds.text
-})
+});
 
 //EventListener para iniciar y detener el cronometro
 var bandera;
@@ -284,48 +289,48 @@ var imgStarFive = Ti.UI.createImageView({
 });
 
 imgStarOne.addEventListener('click', function(){
-    imgStarOne.image = 'images/star.png'
-    imgStarTwo.image = 'images/star_off.png'
-    imgStarThree.image = 'images/star_off.png'
-    imgStarFour.image = 'images/star_off.png'
-    imgStarFive.image = 'images/star_off.png'
-    scoreParking = 2
+    imgStarOne.image = 'images/star.png';
+    imgStarTwo.image = 'images/star_off.png';
+    imgStarThree.image = 'images/star_off.png';
+    imgStarFour.image = 'images/star_off.png';
+    imgStarFive.image = 'images/star_off.png';
+    scoreParking = 2;
 });
 
 imgStarTwo.addEventListener('click', function(){
-    imgStarOne.image = 'images/star.png'
-    imgStarTwo.image = 'images/star.png'
-    imgStarThree.image = 'images/star_off.png'
-    imgStarFour.image = 'images/star_off.png'
-    imgStarFive.image = 'images/star_off.png'
-    scoreParking = 4
+    imgStarOne.image = 'images/star.png';
+    imgStarTwo.image = 'images/star.png';
+    imgStarThree.image = 'images/star_off.png';
+    imgStarFour.image = 'images/star_off.png';
+    imgStarFive.image = 'images/star_off.png';
+    scoreParking = 4;
 });
 
 imgStarThree.addEventListener('click', function(){
-    imgStarOne.image = 'images/star.png'
-    imgStarTwo.image = 'images/star.png'
-    imgStarThree.image = 'images/star.png'
-    imgStarFour.image = 'images/star_off.png'
-    imgStarFive.image = 'images/star_off.png'
-    scoreParking = 6
+    imgStarOne.image = 'images/star.png';
+    imgStarTwo.image = 'images/star.png';
+    imgStarThree.image = 'images/star.png';
+    imgStarFour.image = 'images/star_off.png';
+    imgStarFive.image = 'images/star_off.png';
+    scoreParking = 6;
 });
 
 imgStarFour.addEventListener('click', function(){
-    imgStarOne.image = 'images/star.png'
-    imgStarTwo.image = 'images/star.png'
-    imgStarThree.image = 'images/star.png'
-    imgStarFour.image = 'images/star.png'
-    imgStarFive.image = 'images/star_off.png'
-    scoreParking = 8
+    imgStarOne.image = 'images/star.png';
+    imgStarTwo.image = 'images/star.png';
+    imgStarThree.image = 'images/star.png';
+    imgStarFour.image = 'images/star.png';
+    imgStarFive.image = 'images/star_off.png';
+    scoreParking = 8;
 });
 
 imgStarFive.addEventListener('click', function(){
-    imgStarOne.image = 'images/star.png'
-    imgStarTwo.image = 'images/star.png'
-    imgStarThree.image = 'images/star.png'
-    imgStarFour.image = 'images/star.png'
-    imgStarFive.image = 'images/star.png'
-    scoreParking = 10
+    imgStarOne.image = 'images/star.png';
+    imgStarTwo.image = 'images/star.png';
+    imgStarThree.image = 'images/star.png';
+    imgStarFour.image = 'images/star.png';
+    imgStarFive.image = 'images/star.png';
+    scoreParking = 10;
 });
 
 var txaComment = Ti.UI.createTextArea({
